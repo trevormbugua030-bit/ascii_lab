@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1d211e">
+  <title>ascii lab — text converter</title>
+  <link rel="stylesheet" href="style.css?v=3">
+  <script src="script.js?v=3" defer></script>
+</head>
+<body>
+  <main class="app-shell">
+    <header class="site-header">
+      <div>
+        <h1>ascii lab</h1>
+        <p>Turn pictures and phrases into text characters.</p>
+      </div>
+      <span class="version">v1.0</span>
+    </header>
+
+    <nav class="mode-switch" aria-label="Generator mode">
+      <button type="button" class="mode-button is-active" data-mode="image" aria-pressed="true">Image to ASCII</button>
+      <button type="button" class="mode-button" data-mode="text" aria-pressed="false">Text generator</button>
+    </nav>
+
+    <section class="workspace" aria-label="ASCII workspace">
+      <section class="panel input-panel" aria-labelledby="input-title">
+        <div class="panel-heading">
+          <h2 id="input-title">Image input</h2>
+          <button class="text-button" id="remove-image" type="button" disabled>Remove</button>
+        </div>
+        <label class="drop-area" id="drop-area" for="file-input" tabindex="0">
+          <span class="drop-mark" aria-hidden="true">+</span>
+          <span class="drop-copy"><strong>Choose an image</strong><br>or drop one here</span>
+          <span class="file-types">PNG, JPG, WebP</span>
+          <input id="file-input" type="file" accept="image/png,image/jpeg,image/webp,.png,.jpg,.jpeg,.webp">
+        </label>
+        <div class="source-preview" id="source-preview-wrap">
+          <img id="source-preview" alt="Selected source image preview" hidden>
+          <p id="source-empty">No image selected.</p>
+        </div>
+        <p id="input-status" class="status" role="status" aria-live="polite">Choose an image to get started.</p>
+      </section>
+
+      <section class="panel text-panel" aria-labelledby="text-title" hidden>
+        <div class="panel-heading"><h2 id="text-title">Text input</h2></div>
+        <label class="field-label" for="text-input">Enter text</label>
+        <textarea id="text-input" rows="7" maxlength="400" placeholder="Type a word or short message…" spellcheck="false"></textarea>
+        <p class="field-help">Block letters wrap to your selected width. Up to 400 characters.</p>
+        <button class="button button-primary" id="generate-text" type="button">Generate text art</button>
+        <p id="text-status" class="status" role="status" aria-live="polite">Your text is rendered locally.</p>
+      </section>
+
+      <section class="panel output-panel" aria-labelledby="output-title">
+        <div class="panel-heading output-heading">
+          <h2 id="output-title">ASCII output</h2>
+          <div class="button-row">
+            <button class="button button-quiet" id="copy-button" type="button">Copy</button>
+            <button class="button button-quiet" id="download-button" type="button">Download TXT</button>
+          </div>
+        </div>
+        <div class="output-frame" id="output-frame">
+          <pre id="ascii-output" aria-label="Generated ASCII art" tabindex="0"></pre>
+          <div class="empty-output" id="output-empty" hidden>
+            <p>Nothing to show yet.</p>
+            <span>Choose an image or enter some text.</span>
+          </div>
+          <span class="output-loading" id="loading-status" role="status" aria-live="polite" hidden>Making ASCII…</span>
+        </div>
+        <p id="output-status" class="status" role="status" aria-live="polite">Choose an image or enter text to get started.</p>
+      </section>
+
+      <section class="panel settings-panel" aria-labelledby="settings-title">
+        <div class="panel-heading"><h2 id="settings-title">Settings</h2></div>
+        <div class="setting-row range-setting">
+          <label for="width-range">Width</label>
+          <input id="width-range" type="range" min="40" max="200" value="100">
+          <output id="width-value" for="width-range">100</output>
+        </div>
+        <div class="setting-row range-setting">
+          <label for="brightness-range">Brightness</label>
+          <input id="brightness-range" type="range" min="-100" max="100" value="0">
+          <output id="brightness-value" for="brightness-range">0</output>
+        </div>
+        <div class="setting-row range-setting">
+          <label for="contrast-range">Contrast</label>
+          <input id="contrast-range" type="range" min="-100" max="100" value="0">
+          <output id="contrast-value" for="contrast-range">0</output>
+        </div>
+        <label class="check-row" for="invert-check"><input id="invert-check" type="checkbox"> Invert brightness</label>
+        <label class="field-label" for="color-mode">Color mode</label>
+        <select id="color-mode">
+          <option value="mono">Monochrome</option>
+          <option value="color">Color</option>
+        </select>
+        <label class="field-label" for="ramp-input">Character ramp</label>
+        <input id="ramp-input" type="text" value="@%#*+=-:. " autocomplete="off" spellcheck="false" aria-describedby="ramp-help">
+        <small id="ramp-help" class="field-help">Dark to light; use at least two characters.</small>
+        <button class="button button-reset" id="reset-button" type="button">Reset settings</button>
+      </section>
+    </section>
+    <footer class="page-footer">Runs in your browser. Your images and text stay on this device.</footer>
+  </main>
+</body>
+</html>
